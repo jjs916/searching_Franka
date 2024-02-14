@@ -1,5 +1,7 @@
 from scholarly import scholarly
 import pandas as pd
+import dblp
+
 
 def get_google_scholar_results(query, source, year_low, year_high):
     search_query = scholarly.search_pubs(f"{query} {source}", True, True, year_low, year_high)
@@ -12,22 +14,27 @@ def get_google_scholar_results(query, source, year_low, year_high):
         venue = data.get('venue', 'Venue not available')
 
         print(f"Result {i + 1}:")
-        print(f"Title: {title}")
-        print(f"Venue: {venue}")
-        print("------")
+        # print(f"Title: {title}")
+        # print(f"Venue: {venue}")
+        # print("------")
 
         data_list.append({'Title': title, 'Venue': venue})
 
     return i + 1, data_list  # Return the count of results (i)
 
 if __name__ == "__main__":
-    search_query = "franka emika"
+    search_query = 'franka OR emika OR "panda arm" OR "panda robot" OR "panda gripper" OR "7 DOF panda" OR "panda manipulator" OR "panda cobot"'
     year = 2023
 
     # List of possible sources
-    possible_sources = ['source:ICRA site:ieee.org', 'source:IROS site:ieee.org', 'source:"Robotics and automation letters" site:ieee.org',
-                        'source:"Transactions on Robotics" site:ieee.org', 'source:"Conference on Robot Learning" site:mlr.press',
-                        'source:"case" site:ieee.org', 'source:"Humanoids" site:ieee.org', 'source:"IEEE Sensors" site:ieee.org']
+    possible_sources = ['-workshop source:ICRA', '-workshop source:IROS', 'source:"Robotics and automation letters"',
+                        'source:"Transactions on Robotics" site:ieee.org', '-workshop source:"Conference on Robot Learning"',
+                        '-workshop source:2023 IEEE "19th International Conference on Automation Science and Engineering (CASE)"',
+                        '-workshop source:"Humanoids"', 'source:"IEEE Sensors journal"', 'source:arxiv']
+    
+    # possible_sources = ['source:ICRA site:ieee.org', 'source:IROS site:ieee.org', 'source:"Robotics and automation letters" site:ieee.org',
+    #                     'source:"Transactions on Robotics" site:ieee.org', 'source:"Conference on Robot Learning" site:mlr.press',
+    #                     'source:"case" site:ieee.org', 'source:"Humanoids" site:ieee.org', 'source:"IEEE Sensors" site:ieee.org']
 
     all_data = []
     counts = {}
