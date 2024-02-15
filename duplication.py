@@ -13,9 +13,9 @@ df1[df1.columns[0]] = df1[df1.columns[0]].str.lower()
 df2[df2.columns[0]] = df2[df2.columns[0]].str.lower()
 
 # Merge DataFrames on the lowercase version of the first column
-common_data = pd.merge(df1, df2, how='inner', left_on=df1.columns[0], right_on=df2.columns[0])
+common_data = pd.merge(df1, df2[[df2.columns[0], df2.columns[1]]], how='inner', left_on=df1.columns[0], right_on=df2.columns[0])
 
 # Save the result to a new Excel file
-common_data.to_excel('common_data.xlsx', index=False)
+common_data.to_excel('common_data.xlsx', index=False, columns=[df1.columns[0], df2.columns[1]])
 
 print("Common data saved to 'common_data.xlsx'")
