@@ -3,8 +3,8 @@ import pandas as pd
 
 
 def get_google_scholar_results(query, source, year_low, year_high):
-    # search_query = scholarly.search_pubs(f"{query} {source}", True, True, year_low, year_high)
-    search_query = scholarly.search_pubs(f"{query}", True, True, year_low, year_high)
+    # search_query = scholarly.search_pubs(f"{query} {source}", True, True, year_low, year_high)#if you want to add specific venue, use this
+    search_query = scholarly.search_pubs(f"{query}", True, True, year_low, year_high)#w/o venue
 
     data_list = []
 
@@ -14,9 +14,6 @@ def get_google_scholar_results(query, source, year_low, year_high):
         venue = data.get('venue', 'Venue not available')
 
         print(f"Result {i + 1}:")
-        # print(f"Title: {title}")
-        # print(f"Venue: {venue}")
-        # print("------")
 
         data_list.append({'Title': title, 'Venue': venue})
 
